@@ -3,6 +3,9 @@ import oom from '../img/perles.png';
 import oom2 from '../img/jewelry.png';
 import slide1 from '../img/bijoux.png';
 
+
+
+
 import {
     Carousel,
     CarouselItem,
@@ -10,6 +13,7 @@ import {
     CarouselIndicators,
     CarouselCaption
   } from 'reactstrap';
+import SlideCarousel from './includes/SlideCarousel';
 
 const HomePage = (props) => {
     
@@ -68,7 +72,7 @@ const HomePage = (props) => {
         return (
             
             <div>
-                <Carousel
+                {/* <Carousel
                     activeIndex={activeIndex}
                     next={next}
                     previous={previous}
@@ -77,7 +81,8 @@ const HomePage = (props) => {
                     {slides}
                     <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
                     <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
-                </Carousel>
+                </Carousel> */}
+                <SlideCarousel/>
                 <div className="container mt-4">
                     <div className="row">
                         <div className=" col-sm-6">
@@ -106,6 +111,7 @@ const HomePage = (props) => {
                         </div>
                     </div>
                 </div>
+  
             </div>
         );
     

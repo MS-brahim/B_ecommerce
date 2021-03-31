@@ -3,6 +3,7 @@ import { Login } from '../Login';
 import { Register } from '../Register';
 import { FixedNavTop } from './NavFixed';
 
+
 const NavBar = (props) => {
 
     return (

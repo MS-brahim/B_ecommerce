@@ -10,6 +10,17 @@ const getProduct = async (req,res)=>{
     }
 };
 
+// GET DATA LIMIT 3
+const getProductLimit3 = async (req,res)=>{
+    try {
+        const products = await Product.find();
+        res.json(products) 
+        console.log(products);
+    } catch (error) {
+        res.json({message:error})
+    }
+};
+
 // GET DATA BY ID
 const getProductById = async (req, res) => {
     try {
@@ -21,16 +32,16 @@ const getProductById = async (req, res) => {
 }
 
 // // POST NEW DATA 
-const saveProduct= async (req, res)=>{
-
+const saveProduct = async (req, res)=>{
+    
     const newProduct= new Product(
         {
             name        :req.body.name,
+            image       :req.body.image,
             price       :req.body.price,
             discription :req.body.discription,
-            id_vendeur  :req.body.id_vendeur,
             id_category :req.body.id_category,
-            image       :req.body.image,
+            id_user     :req.body.id_user,
         });
 
     try {
@@ -46,11 +57,11 @@ const updateProduct= async (req, res) => {
     try {
         const product= await Product.updateOne({_id:req.params.id}, {$set:{
             name        :req.body.name,
+            image       :req.body.image,
             price       :req.body.price,
             discription :req.body.discription,
-            id_vendeur  :req.body.id_vendeur,
             id_category :req.body.id_category,
-            image       :req.body.image,
+            id_user     :req.body.id_user,
         }});
         res.json(product);
     } catch (error) {
@@ -70,8 +81,9 @@ const deleteProduct= async (req, res) => {
 
 module.exports = {
     getProduct,
-    saveProduct,
     getProductById,
+    getProductLimit3,
+    saveProduct,
     updateProduct,
     deleteProduct,
 };

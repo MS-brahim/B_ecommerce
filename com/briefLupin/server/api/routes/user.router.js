@@ -10,4 +10,6 @@ router.route('/:id').get(userController.getAdminById)
 router.route('/validate/:id').patch(userController.validateAdmin)
 
 
+
+
 module.exports = router;

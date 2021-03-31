@@ -22,27 +22,26 @@ const loginSuperAdmin = async (req, res)=>{
     console.log(token);
 };
 
-// LOGIN ADMIN 
+// LOGIN AUTH 
 const login = async (req, res)=>{
-
-    // VALIDATION LOGIN-ADMIN 
+    // VALIDATION LOGIN-AUTH 
     const {error} = loginValidation(req.body);
     if(error) return res.status(400).send(error.details[0].message);
-    // CHECK IF ADMIN ALREADY EXISTS 
-    const admin = await User.findOne({phone:req.body.phone});
-    if(!admin) return res.status(400).send('Phone Number is not found!!');
+    // CHECK IF AUTH ALREADY EXISTS 
+    const auth = await User.findOne({phone:req.body.phone});
+    if(!auth) return res.status(400).send('Phone Number is not found!!');
     // CHECK IF PASSWORD IS CORRECT
-    const adminPass = await User.findOne({password:req.body.password});
-    if(!adminPass) return res.status(400).send('Password incorrect!!');
+    const authPass = await User.findOne({password:req.body.password});
+    if(!authPass) return res.status(400).send('Password incorrect!!');
 
-    const token = jwt.sign({_id:admin._id}, process.env.TOKEN_SECRET,{expiresIn:process.env.JWT_EXPIR});
-    res.send({token, admin});
+    const token = jwt.sign({_id:auth._id}, process.env.TOKEN_SECRET,{expiresIn:process.env.JWT_EXPIR});
+    res.send({token, auth});
 };
 
 // POST NEW DATA 
 const register = async (req, res)=>{
 
-    // VALIDATION REGISTER-ADMIN FIELDS
+    // VALIDATION REGISTER-AUTH FIELDS
     const {error} = registerValidation(req.body);
     if(error) return res.status(400).send(error.details[0].message);
     // CHECK IF NUMBER PHONE ALREADY EXISTS 

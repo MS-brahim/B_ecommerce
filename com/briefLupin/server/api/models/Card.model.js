@@ -1,19 +1,19 @@
 const mongoose = require('mongoose');
+const ProductModel = require('./Product.model');
+const UserModel = require('./User.model');
 
 const Card = new mongoose.Schema({
     id_product:{
-        type:String,
-        required:true,
+        type:mongoose.Schema.Types.ObjectId,
+        ref:ProductModel,
     },
-    id_client:{
-        type:String,
-        required:true,
-        unique:true,
+    id_user:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:UserModel,
     },
     qty:{
         type:Number,
         required:true,
-        unique:true
     },
     dateCreate:{
         type:Date,

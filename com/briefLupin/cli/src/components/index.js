@@ -1,4 +1,18 @@
-export * from './Home';
+// Auth 
 export * from './Login';
-export * from './Catalog';
+
+// Includes 
 export * from './includes/Navbar';
+export * from './includes/NavFixed';
+export * from './includes/SlideCarousel';
+export * from './includes/SideBar';
+
+
+
+// Seller 
+export * from './seller/Dashboard';
+
+// Client 
+export * from './Home';
+export * from './Catalog';
+export * from './Cart';

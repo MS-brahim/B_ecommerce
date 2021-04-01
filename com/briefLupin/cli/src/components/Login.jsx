@@ -19,16 +19,19 @@ class Login extends Component {
             password:values.password,
         }).then((response) => {
             localStorage.setItem('auth-token', response.data.token)
+            localStorage.setItem('auth-id', response.data.auth._id)
             let authRole = response.data.auth.role;
             switch (authRole) {
                 case 'admin':
-                    console.log('is admin');
+                    // this.props.history.push('/admin')
                     break;
                 case 'seller':
                     console.log('is seller');
+                    // this.props.history.push('/seller')
                     break;
                 case 'client':
                     console.log('is client');
+                    // this.props.history.push('/')
                     break;       
             
                 default:

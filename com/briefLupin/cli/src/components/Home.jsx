@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import oom from '../img/perles.png';
 import oom2 from '../img/jewelry.png';
 import slide1 from '../img/bijoux.png';
-
+import { FixedNavTop, NavBar } from './';
 
 
 
@@ -72,6 +72,8 @@ const HomePage = (props) => {
         return (
             
             <div>
+                <FixedNavTop/>
+                <NavBar/>
                 {/* <Carousel
                     activeIndex={activeIndex}
                     next={next}

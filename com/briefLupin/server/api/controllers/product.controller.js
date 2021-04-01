@@ -3,7 +3,7 @@ const Product = require('../models/Product.model');
 // GET DATA
 const getProduct = async (req,res)=>{
     try {
-        const products = await Product.find();
+        const products = await Product.find().populate('id_category');
         res.json(products) 
     } catch (error) {
         res.json({message:error})
@@ -11,11 +11,10 @@ const getProduct = async (req,res)=>{
 };
 
 // GET DATA LIMIT 3
-const getProductLimit3 = async (req,res)=>{
+const getProduct1 = async (req,res)=>{
     try {
-        const products = await Product.find();
+        const products = await Product.find().limit(1).populate('id_category');
         res.json(products) 
-        console.log(products);
     } catch (error) {
         res.json({message:error})
     }
@@ -36,10 +35,11 @@ const saveProduct = async (req, res)=>{
     
     const newProduct= new Product(
         {
-            name        :req.body.name,
             image       :req.body.image,
+            name        :req.body.name,
+            oldPrice    :req.body.oldPrice,
             price       :req.body.price,
-            discription :req.body.discription,
+            description :req.body.description,
             id_category :req.body.id_category,
             id_user     :req.body.id_user,
         });
@@ -56,10 +56,11 @@ const saveProduct = async (req, res)=>{
 const updateProduct= async (req, res) => {
     try {
         const product= await Product.updateOne({_id:req.params.id}, {$set:{
-            name        :req.body.name,
             image       :req.body.image,
+            name        :req.body.name,
+            oldPrice    :req.body.oldPrice,
             price       :req.body.price,
-            discription :req.body.discription,
+            description :req.body.description,
             id_category :req.body.id_category,
             id_user     :req.body.id_user,
         }});
@@ -82,7 +83,7 @@ const deleteProduct= async (req, res) => {
 module.exports = {
     getProduct,
     getProductById,
-    getProductLimit3,
+    getProduct1,
     saveProduct,
     updateProduct,
     deleteProduct,

@@ -22,7 +22,7 @@ const saveCard = async (req, res)=>{
         });
 
     try {
-        const saveCard = await newCard.save();
+        const saveCard = await (await newCard.save()).populate('id_product');
         res.json(saveCard);
     } catch (error) {
         res.json({message:error})

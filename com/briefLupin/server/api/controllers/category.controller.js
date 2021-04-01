@@ -23,7 +23,7 @@ const getCategoryById = async (req, res) => {
 // // POST NEW DATA 
 const saveCategory = async (req, res)=>{
 
-    const newCategory = new Category({name:req.body.name});
+    const newCategory = new Category({name:req.body.name, image:req.body.image});
 
     try {
         const saveCateg = await newCategory.save();
@@ -36,7 +36,7 @@ const saveCategory = async (req, res)=>{
 // UPDATE DATA
 const updateCategory = async (req, res) => {
     try {
-        const category = await Category.updateOne({_id:req.params.id}, {$set:{name:req.body.name}});
+        const category = await Category.updateOne({_id:req.params.id}, {$set:{name:req.body.name, image:req.body.image}});
         res.json(category);
     } catch (error) {
         res.json({message:error})

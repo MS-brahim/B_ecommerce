@@ -13,7 +13,6 @@ const Card = new mongoose.Schema({
     },
     qty:{
         type:Number,
-        required:true,
     },
     dateCreate:{
         type:Date,

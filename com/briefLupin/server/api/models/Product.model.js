@@ -3,19 +3,22 @@ const categoryModel = require('./category.model');
 const UserModel = require('./User.model');
 
 const Product = new mongoose.Schema({
+    image:{
+        type:String,
+        required:true
+    },
     name:{
         type:String,
         required:true
     },
-    image:{
-        type:String,
-        required:true
+    oldPrice:{
+        type:Number,
     },
     price:{
         type:Number,
         required:true
     },
-    discription:{
+    description:{
         type:String,
         required:true
     },

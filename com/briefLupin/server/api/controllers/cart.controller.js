@@ -38,7 +38,19 @@ const saveCart = async (req, res)=>{
     } 
 };
 
-// UPDATE DATA
+// CART INCREMENT
+const incrementCart= async (req, res) => {
+    try {
+        const cart= await Cart.updateOne({_id:req.params.id}, {$push:{
+            id_product:req.body.id_product,
+        }});
+        res.json(cart);
+    } catch (error) {
+        res.json({message:error})
+    }
+}
+
+// UPDATE CART QTY 
 const updateCart= async (req, res) => {
     try {
         const cart= await Cart.updateOne({_id:req.params.id}, {$set:{
@@ -64,6 +76,7 @@ module.exports = {
     getCartById,
     getCart,
     saveCart,
+    incrementCart,
     updateCart,
     deleteCart,
 };

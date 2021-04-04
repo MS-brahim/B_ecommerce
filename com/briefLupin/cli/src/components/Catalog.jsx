@@ -3,6 +3,7 @@ import oom2 from '../img/jewelry.png';
 import axios from 'axios';
 import { FixedNavTop, NavBar } from './';
 import Swal from 'sweetalert2';
+const auth = localStorage.getItem('auth-id');
 class CatalogPage extends Component {
     state = {
         products:[],
@@ -14,12 +15,11 @@ class CatalogPage extends Component {
 
     async handleAddtoCard(idProd, qty){
         try {
-            await axios.post('http://localhost:8080/api/card/save',{
+            await axios.post('http://localhost:8080/api/cart/save',{
                 id_product:idProd,
-                is_user:localStorage.getItem('auth-id'),
                 qty:qty
             }).then(request=>{
-                console.log(request.data);
+                
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',

@@ -13,6 +13,7 @@ const Product = new mongoose.Schema({
     },
     oldPrice:{
         type:Number,
+        default:00
     },
     price:{
         type:Number,

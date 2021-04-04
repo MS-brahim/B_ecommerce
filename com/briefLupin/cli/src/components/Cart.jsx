@@ -25,26 +25,24 @@ class CartPage extends Component {
             }
         }).then(() => {
             axios.delete('http://localhost:8080/api/cart/delete/'+idCard)
-            .then(response=>{console.log(response.data);})
+            .then(response=>{console.log(response.data);window.location.reload(); })
         })
     }
     // Get data 
     async getCart() {
-        const timeOut = 1000
         try {
-            await axios.get('http://localhost:8080/api/cart').then(response=>{
+            await axios.get('http://localhost:8080/api/cart/').then(response=>{
+                console.log(localStorage.getItem('cartItem'));
                 const cart = response.data.map(cartItem=>
                     <div key={cartItem._id} className="d-flex justify-content-between bg-light border shadow bg-white rounded mt-4 p-3">
                         <b>{cartItem.id_product.name}</b>
-                        <input type="number" className="border border-secondary rounded h-75" minLength={1} defaultValue={cartItem.qty} style={{maxWidth:60}}/>
+                        <input type="number" className="border border-secondary rounded h-75" defaultValue={cartItem.qty} style={{maxWidth:60}}/>
                         <p>{cartItem.id_product.price} Dhs</p>
                         <span type="button" onClick={()=>this.cartDelete(cartItem._id)}><i className="fas fa-trash btn btn-sm btn-outline-info"></i></span>
                     </div>
                 )
-                setTimeout(() => {
-                    this.setState({cart})
-                    this.setState({spiner:true})
-                }, timeOut);
+                this.setState({cart})
+                this.setState({spiner:true})
                 
             })
         } catch (error) {
@@ -61,14 +59,24 @@ class CartPage extends Component {
                 <NavBar/>
                 <div className="container my-4">
                     <div className="row">
-                        <div className="col-sm-8 ">
+                        <div className="col-sm-8  border pb-4">
                             {cart}
                         </div>
-                        <div className="col-sm-3 card m-auto">
-                            <h1>Hello, world!</h1>
-                            <p className="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-                            <hr className="my-1"/>
-                            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+                        <div className="col-sm-3 card m-auto mt-0">
+                            <ul className="list-group list-group-flush">
+                                <li className="list-group-item">Price Details</li>
+                                <i className="list-group-item">
+
+                                    Price (3 Item) : <span style={{display:'flex', float:'right'}}> 23 Dhs</span><br/>
+                                    Delivery Charges : <b style={{display:'flex', float:'right', color:'#008020'}}> Free</b>
+                                </i>
+                                <li className="list-group-item"><b>Total Amount : </b> <b className="d-flex" style={{float:'right'}}>1222 Dhs</b></li>
+                            </ul>
+                            
+                            <div className="d-flex justify-content-md-between my-4">
+                                <a href="/order" className="btn btn-warning">PLACE ORDER</a>
+                                <a href="/catalog" className="btn btn-warning">BACK</a>
+                            </div>
                         </div>
                     </div>
                 </div>

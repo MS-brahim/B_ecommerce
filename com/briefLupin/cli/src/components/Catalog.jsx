@@ -13,13 +13,13 @@ class CatalogPage extends Component {
         this.getProduct()
     }
 
-    async handleAddtoCard(idProd, qty){
+    async handleAddtoCart(idProd, qty){
         try {
             await axios.post('http://localhost:8080/api/cart/save',{
                 id_product:idProd,
                 qty:qty
             }).then(request=>{
-                
+                localStorage.setItem('cartItem', request.data._id)
                 const Toast = Swal.mixin({
                     toast: true,
                     position: 'top-end',
@@ -55,7 +55,8 @@ class CatalogPage extends Component {
                             <div className="card-body">
                                 <h5 className="card-title">{prod.name}</h5>
                                 <p className="card-text">{prod.description}</p>
-                                <a href="#" className="btnCss btn btn-warning" onClick={()=>this.handleAddtoCard(prod._id, '1')} style={{borderRadius:'30px'}}>Add to card</a>
+                                <p className="card-text">{prod.price} Dhs <del className="text-muted"><small>{prod.oldPrice} Dhs</small> </del> </p>
+                                <a href="#" className="btnCss btn btn-warning" onClick={()=>this.handleAddtoCart(prod._id, '1')} style={{borderRadius:'30px'}}>Add to cart</a>
                             </div>
                         </div>
                     </div>

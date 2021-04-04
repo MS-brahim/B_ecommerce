@@ -18,4 +18,4 @@ db.connect()
 server.use('/api/user', require('./api/routes/user.router'));
 server.use('/api/category', require('./api/routes/category.router'));
 server.use('/api/product', require('./api/routes/product.router'));
-server.use('/api/card', require('./api/routes/card.router'));
+server.use('/api/cart', require('./api/routes/cart.router'));

@@ -55,8 +55,8 @@ class DashboardSeller extends Component {
                         <th scope="row">{i+1}</th>
                         <td>{category.image}</td>
                         <td>{category.name}</td>
-                        <td width="60"><button type="button" className="btn btn-outline-info btn-sm"><i className="fas fa-trash"></i></button></td>
-                        <td width="60"><button type="button" className="btn btn-outline-info btn-sm"><i className="far fa-edit"></i></button></td>
+                        <td width="60"><button type="button" className="btn btn-outline-info btn-sm" onClick={()=>this.deleteProd(category._id)}><i className="fas fa-trash"></i></button></td>
+                        <td width="60"><button type="button" className="btn btn-outline-info btn-sm" onClick={()=>this.updateProd(category._id)}><i className="far fa-edit"></i></button></td>
                     </tr>
                 )
                 setTimeout(() => {
@@ -71,6 +71,11 @@ class DashboardSeller extends Component {
         }
     }
 
+    deleteProd(id){
+        axios.delete('http://localhost:8080/api/product/delete/'+id).then(()=>{
+            console.log('is deleted');
+        })
+    }
     async getProduct() {
         const timeOut = 600
         try {
@@ -83,8 +88,8 @@ class DashboardSeller extends Component {
                         <td>{prod.price} <small>{prod.oldPrice}</small></td>
                         <td>{prod.description}</td>
                         <td>{prod.id_category.name}</td>
-                        <td width="60"><button type="button" className="btn btn-outline-info btn-sm"><i className="fas fa-trash"></i></button></td>
-                        <td width="60"><button type="button" className="btn btn-outline-info btn-sm"><i className="far fa-edit"></i></button></td>
+                        <td width="60"><button type="button" className="btn btn-outline-info btn-sm" onClick={()=>this.deleteProd(prod._id)}><i className="fas fa-trash"></i></button></td>
+                        <td width="60"><button type="button" className="btn btn-outline-info btn-sm" onClick={()=>this.updateProd(prod._id)}><i className="far fa-edit"></i></button></td>
                     </tr>
                 )
                 setTimeout(() => {
@@ -100,7 +105,7 @@ class DashboardSeller extends Component {
 
     }
      render() { 
-        const { spiner, products, categories } = this.state 
+        const { products, categories } = this.state 
         return (
             <div className="container-fluid">
                 <FixedNavTop/>

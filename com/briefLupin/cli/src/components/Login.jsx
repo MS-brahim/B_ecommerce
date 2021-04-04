@@ -23,15 +23,16 @@ class Login extends Component {
             let authRole = response.data.auth.role;
             switch (authRole) {
                 case 'admin':
-                    // this.props.history.push('/admin')
+                    window.location.href= '/admin/dashboard'
+                    console.log('is Admin');
                     break;
                 case 'seller':
                     console.log('is seller');
-                    // this.props.history.push('/seller')
+                    window.location.href= '/seller/dashboard'
                     break;
                 case 'client':
                     console.log('is client');
-                    // this.props.history.push('/')
+                    window.location.href= '/'
                     break;       
             
                 default:

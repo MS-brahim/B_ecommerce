@@ -7,37 +7,47 @@ const auth = localStorage.getItem('auth-id');
 class CatalogPage extends Component {
     state = {
         products:[],
-        spiner:false
+        spiner:false,
+        cart:[]
     }
     componentDidMount(){
         this.getProduct()
     }
 
     async handleAddtoCart(idProd, qty){
+        
         try {
-            await axios.post('http://localhost:8080/api/cart/save',{
-                id_product:idProd,
-                qty:qty
-            }).then(request=>{
-                localStorage.setItem('cartItem', request.data._id)
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 1000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                })
-                  
-                Toast.fire({
-                    icon: 'success',
-                    title: ' Join in successfully'
-                })
+            const { cart } = this.state
+            console.log(cart._id);
 
-            })
+            if(cart.length===0){
+                console.log('new cart is state');
+            
+                await axios.post('http://localhost:8080/api/cart/save',{
+                    id_product:idProd,
+                    qty:qty
+                }).then(request=>{
+                     axios.patch('http://localhost:8080/api/cart/inc-cart/'+cart._id,{
+                        id_product:[idProd]
+                    }).then(request=>{
+                        console.log('push new product in cart : ',request.data);
+
+                    })
+                    this.setState({cart:request.data})
+                    
+                })
+            }else {
+                // do {
+                    await axios.patch('http://localhost:8080/api/cart/inc-cart/'+cart._id,{
+                        id_product:[idProd]
+                    }).then(request=>{
+                        console.log('push new product in cart : ',request.data);
+
+                        this.setState({cart:request.data})
+                    })
+                // } while (this.handleAddtoCart(idProd,qty));
+                
+            }
         } catch (error) {
             console.log(error);
         }
@@ -45,6 +55,7 @@ class CatalogPage extends Component {
     }
 
     async getProduct() {
+        
         const timeOut = 1000
         try {
             await axios.get('http://localhost:8080/api/product').then(response=>{
@@ -56,7 +67,7 @@ class CatalogPage extends Component {
                                 <h5 className="card-title">{prod.name}</h5>
                                 <p className="card-text">{prod.description}</p>
                                 <p className="card-text">{prod.price} Dhs <del className="text-muted"><small>{prod.oldPrice} Dhs</small> </del> </p>
-                                <a href="#" className="btnCss btn btn-warning" onClick={()=>this.handleAddtoCart(prod._id, '1')} style={{borderRadius:'30px'}}>Add to cart</a>
+                                <button className="btnCss btn btn-warning" onClick={()=>this.handleAddtoCart(prod._id, '1')} style={{borderRadius:'30px'}}>Add to cart</button>
                             </div>
                         </div>
                     </div>
@@ -75,6 +86,7 @@ class CatalogPage extends Component {
     }
      render() { 
         const { spiner, products } = this.state 
+        // console.log(cart);
         return (
             
             <div>

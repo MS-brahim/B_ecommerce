@@ -16,7 +16,7 @@ class CartPage extends Component {
     cartDelete(idCard){
         Swal.fire({
             title: 'Custom animation with Animate.css',
-            confirmButtonText:'Continue&nbsp;<i className="fa fa-arrow-right"></i>',
+            confirmButtonText:'Skip',
             showClass: {
                 popup: 'animate__animated animate__fadeInDown'
             },
@@ -32,7 +32,6 @@ class CartPage extends Component {
     async getCart() {
         try {
             await axios.get('http://localhost:8080/api/cart/').then(response=>{
-                console.log(localStorage.getItem('cartItem'));
                 const cart = response.data.map(cartItem=>
                     <div key={cartItem._id} className="d-flex justify-content-between bg-light border shadow bg-white rounded mt-4 p-3">
                         <b>{cartItem.id_product.name}</b>

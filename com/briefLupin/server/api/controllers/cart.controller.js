@@ -13,7 +13,7 @@ const getCart = async (req, res) => {
 // GET DATA BY ID
 const getCartById = async (req, res) => {
     try {
-        const cart= await Cart.findById({_id:req.params.id});
+        const cart= await Cart.findOne({_id:req.params.id}).populate('id_product');
         res.json(cart);
     } catch (error) {
         res.json({message:error})
@@ -31,7 +31,7 @@ const saveCart = async (req, res)=>{
         });
 
     try {
-        const saveCart = await (await newCart.save()).populate('id_product');
+        const saveCart = await await newCart.save();
         res.json(saveCart);
     } catch (error) {
         res.json({message:error})

@@ -41,10 +41,14 @@ const saveCart = async (req, res)=>{
 // CART INCREMENT
 const incrementCart= async (req, res) => {
     try {
-        const cart= await Cart.updateOne({_id:req.params.id}, {$push:{
+        await Cart.updateOne({_id:req.params.id}, {$push:{
             id_product:req.body.id_product,
-        }});
-        res.json(cart);
+        }}, (err, cart) => {
+            res.json({
+                cart
+            });
+        });
+        
     } catch (error) {
         res.json({message:error})
     }

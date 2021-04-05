@@ -69,11 +69,11 @@ const register = async (req, res)=>{
     } 
 };
 
-// GET ADMINS 
-const getAdmins = async (req,res)=>{
+// GET SELLER 
+const getSeller = async (req,res)=>{
     try {
-        const admins = await User.find();
-        res.json(admins) 
+        const sellers = await User.find({role:'seller'});
+        res.json(sellers) 
     } catch (error) {
         res.json({message:error})
     }
@@ -92,13 +92,12 @@ const getAdminById = async (req, res)=>{
 // VALIDATE ADMIN
 const validateAdmin = async (req, res)=>{
     try {
-        const adminIsValid = await User.updateOne(
+        res.status(200).json(await User.updateOne(
             {_id:req.params.id},
             {
-                $set:{is_valid:true },
+                $set:{is_valid:true},
             }
-        );
-        res.status(200).json(adminIsValid);
+        ));
     } catch (error) {
         res.json({message:error})
     }
@@ -138,7 +137,7 @@ module.exports = {
     loginSuperAdmin,
     register,
     login,
-    getAdmins,
+    getSeller,
     validateAdmin,
     getAdminById,
 };

@@ -11,12 +11,15 @@ const getProduct = async (req,res)=>{
 };
 
 // GET DATA LIMIT 3
-const getProduct1 = async (req,res)=>{
+const getSingleProduct = async (req,res)=>{
     try {
-        const products = await Product.find().limit(1).populate('id_category');
+
+        // const limit = req.query.limit ? parseInt(req.query.limit): 1;
+         const products = await Product.aggregate([{ $sample: { size: 1 } }]);
         res.json(products) 
     } catch (error) {
         res.json({message:error})
+        console.log(error.message);
     }
 };
 
@@ -83,7 +86,7 @@ const deleteProduct= async (req, res) => {
 module.exports = {
     getProduct,
     getProductById,
-    getProduct1,
+    getSingleProduct,
     saveProduct,
     updateProduct,
     deleteProduct,

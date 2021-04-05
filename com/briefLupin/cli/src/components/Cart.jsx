@@ -31,17 +31,37 @@ class CartPage extends Component {
     // Get data 
     async getCart() {
         try {
-            await axios.get('http://localhost:8080/api/cart/').then(response=>{
-                const cart = response.data.map(cartItem=>
-                    <div key={cartItem._id} className="d-flex justify-content-between bg-light border shadow bg-white rounded mt-4 p-3">
-                        <b>{cartItem.id_product.name}</b>
-                        <input type="number" className="border border-secondary rounded h-75" defaultValue={cartItem.qty} style={{maxWidth:60}}/>
-                        <p>{cartItem.id_product.price} Dhs</p>
-                        <span type="button" onClick={()=>this.cartDelete(cartItem._id)}><i className="fas fa-trash btn btn-sm btn-outline-info"></i></span>
+            await axios.get('http://localhost:8080/api/cart/'+localStorage.getItem('cartID')).then(response=>{
+
+                const cartProd = response.data;
+                this.setState({cart: cartProd})
+                
+                
+
+                for (let i = 0; i < cartProd.id_product.lenght; i++) {
+                    <div key={cartProd._id} className="d-flex justify-content-between bg-light border shadow bg-white rounded mt-4 p-3">
+                        <b>{
+                            
+                        }</b>
+                        <input type="number" className="border border-secondary rounded h-75" defaultValue={cartProd.qty} style={{maxWidth:60}}/>
+                        <p>{cartProd.id_product[i].price} Dhs</p>
+                        <span type="button" onClick={()=>this.cartDelete(cartProd._id)}><i className="fas fa-trash btn btn-sm btn-outline-info"></i></span>
                     </div>
-                )
-                this.setState({cart})
-                this.setState({spiner:true})
+
+                }
+                // console.log(response.data.id_product);
+                // const cart = response.data.map(cartItem=>
+                    
+                //     // <div key={cartItem._id} className="d-flex justify-content-between bg-light border shadow bg-white rounded mt-4 p-3">
+                //     //     <b>{
+                            
+                //     //     }</b>
+                //     //     <input type="number" className="border border-secondary rounded h-75" defaultValue={cartItem.qty} style={{maxWidth:60}}/>
+                //     //     <p>{cartItem.id_product.price} Dhs</p>
+                //     //     <span type="button" onClick={()=>this.cartDelete(cartItem._id)}><i className="fas fa-trash btn btn-sm btn-outline-info"></i></span>
+                //     // </div>
+                // )
+                
                 
             })
         } catch (error) {

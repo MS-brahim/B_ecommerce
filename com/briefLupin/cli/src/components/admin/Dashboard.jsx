@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import './style.css'
+import '../seller/style.css'
 import { FixedNavTop, SideBar } from '../';
 import {
     Alert,
@@ -10,27 +10,22 @@ import {
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-class DashboardSeller extends Component {
+class DashboardAdmin extends Component {
     state = {
-        products:[],
-        categories:[],
+        sellers:[],
         spiner:false
     }
     componentDidMount(){
-        this.getProduct()
-        this.getCategories()
+        this.getSellers()
     }
 
     _handleFormSubmitProd(values){
         console.log(values);
-        axios.post('http://localhost:8080/api/product/save', {
-            image: values.image,
-            name: values.name,
-            oldPrice: values.oldPrice,
-            price: values.price,
-            description:values.description,
-            category:values.category,
-            id_user:"606320543158a653b421bb1e",
+        axios.post('http://localhost:8080/api/user/save', {
+            full_name: values.full_name,
+            email: values.email,
+            phone: values.phone,
+            password: values.password,
         }).then((response) => {
             
             console.log(response.data)
@@ -46,54 +41,47 @@ class DashboardSeller extends Component {
         }
     }
 
-
-    async getCategories (){
-        try {
-            await axios.get('http://localhost:8080/api/category').then(response=>{
-                const categories = response.data.map((category,i)=>
-                    <tr key={category._id}>
-                        <th scope="row">{i+1}</th>
-                        <td>{category.image}</td>
-                        <td>{category.name}</td>
-                        <td width="60"><button type="button" className="btn btn-outline-info btn-sm" onClick={()=>this.deleteProd(category._id)}><i className="fas fa-trash"></i></button></td>
-                        <td width="60"><button type="button" className="btn btn-outline-info btn-sm" onClick={()=>this.updateProd(category._id)}><i className="far fa-edit"></i></button></td>
-                    </tr>
-                )
-                setTimeout(() => {
-                    this.setState({categories})
-                    console.log(categories);
-                    this.setState({spiner:true})
-                }, 600);
-                
-            })
-        } catch (error) {
-            console.log('FAIL !', error.message);
-        }
-    }
-
-    deleteProd(id){
-        axios.delete('http://localhost:8080/api/product/delete/'+id).then(()=>{
+    deleteSeller(id){
+        axios.delete('http://localhost:8080/api/user/delete/'+id).then(()=>{
             console.log('is deleted');
         })
     }
-    async getProduct() {
+
+    validSeller(id){
+        
+        axios.patch('http://localhost:8080/api/user/validate/'+id).then(()=>{
+            console.log('is valid');
+        })
+    }
+
+    async getSellers() {
         const timeOut = 600
         try {
-            await axios.get('http://localhost:8080/api/product').then(response=>{
-                const products = response.data.map((prod,i)=>
-                    <tr key={prod._id}>
+            await axios.get('http://localhost:8080/api/user').then(response=>{
+                
+                const sellers = response.data.map((seller,i)=>
+                
+                    <tr key={seller._id}>
                         <th scope="row">{i+1}</th>
-                        <td>{prod.image}</td>
-                        <td>{prod.name}</td>
-                        <td>{prod.price} Dhs <del>{prod.oldPrice} Dhs</del></td>
-                        <td>{prod.description}</td>
-                        <td>{prod.id_category.name}</td>
-                        <td width="60"><button type="button" className="btn btn-outline-info btn-sm" onClick={()=>this.deleteProd(prod._id)}><i className="fas fa-trash"></i></button></td>
-                        <td width="60"><button type="button" className="btn btn-outline-info btn-sm" onClick={()=>this.updateProd(prod._id)}><i className="far fa-edit"></i></button></td>
+                        <td>{seller.full_name}</td>
+                        <td>{seller.phone}</td>
+                        <td>{seller.email} </td>
+                        <td>{seller.cin} </td>
+                        <td width="80">
+                            {
+                                seller.is_valid ? 
+                                (
+                                    <button type="button" className="btn btn-success btn-sm" onClick={()=>this.validSeller(seller._id )}>Valid</button>
+                                ) : (
+                                    <button type="button" className="btn btn-danger btn-sm" onClick={()=>this.validSeller(seller._id)}>NoValid</button>
+                                )
+                            }
+                        </td>
+                        <td width="50"><small type="button" className="btn btn-outline-info btn-sm" onClick={()=>this.deleteSeller(seller._id)}><i className="fas fa-trash"></i></small></td>
                     </tr>
                 )
                 setTimeout(() => {
-                    this.setState({products})
+                    this.setState({sellers})
                     this.setState({spiner:true})
                 }, timeOut);
                 
@@ -105,56 +93,18 @@ class DashboardSeller extends Component {
 
     }
      render() { 
-        const { products, categories } = this.state 
+        const { sellers } = this.state 
         return (
             <div className="container-fluid">
                 <FixedNavTop/>
                 <SideBar/>
                 <div className="main mt-5">
                     <div className="well well-sm">Small Well</div>
-                    <div className="row">
-                        <div className="col-sm-6">
-                            <div className="card">
-                                <div className="card-header">
-                                    Orders
-                                </div>
-                                <div className="card-body">
-                                    <h5 className="card-title">Special title treatment</h5>
-                                    <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                    <a href="#" className="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-sm-6">
-                            <div className="card">
-                                <div className="card-header">
-                                    Categories
-                                </div>
-                                <div className="card-body">
-                                    <div className="table-responsive">
-                                        <table className="table table-borderless">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">Image</th>
-                                                    <th scope="col">Name</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {categories}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
                     <div className="card mt-4">
                         <div className="card-header">
-                            Products
+                            Sellers
                             <button type="button" className="btn btn-dark btn-sm" style={{float:'right'}} data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                new product
+                                new seller
                             </button>
                             {/* model button  */}
                             <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -289,15 +239,15 @@ class DashboardSeller extends Component {
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
-                                            <th scope="col">Image</th>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">price</th>
-                                            <th scope="col">Description</th>
-                                            <th scope="col">Category</th>
+                                            <th scope="col">Full Name</th>
+                                            <th scope="col">Phone</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">CIN</th>
+                                            <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {products}
+                                        {sellers}
                                     </tbody>
                                 </table>
                             </div>
@@ -309,4 +259,4 @@ class DashboardSeller extends Component {
     }
 }
  
-export  {DashboardSeller};
+export  {DashboardAdmin};

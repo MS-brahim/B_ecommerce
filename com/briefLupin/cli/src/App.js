@@ -5,6 +5,7 @@ import {
   CatalogPage,
   DashboardSeller,
   CartPage,
+  DashboardAdmin,
 } from './components';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route  path='/catalog' component={CatalogPage} exact/>
         <Route  path='/cart' component={CartPage} exact/>
         <Route  path='/seller/dashboard' component={DashboardSeller} exact/>
+        <Route  path='/admin/dashboard' component={DashboardAdmin} exact/>
       </Switch>
     </div>
   );

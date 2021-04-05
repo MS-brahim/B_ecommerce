@@ -3,7 +3,7 @@ import oom2 from '../img/jewelry.png';
 import axios from 'axios';
 import { FixedNavTop, NavBar } from './';
 import Swal from 'sweetalert2';
-const auth = localStorage.getItem('auth-id');
+
 class CatalogPage extends Component {
     state = {
         products:[],
@@ -18,35 +18,28 @@ class CatalogPage extends Component {
         
         try {
             const { cart } = this.state
-            console.log(cart._id);
+            console.log(cart);
 
             if(cart.length===0){
-                console.log('new cart is state');
             
                 await axios.post('http://localhost:8080/api/cart/save',{
                     id_product:idProd,
                     qty:qty
                 }).then(request=>{
-                     axios.patch('http://localhost:8080/api/cart/inc-cart/'+cart._id,{
-                        id_product:[idProd]
-                    }).then(request=>{
-                        console.log('push new product in cart : ',request.data);
-
-                    })
+                    console.log('new cart : ', request.data);
+                    localStorage.setItem('cartID', request.data._id);
                     this.setState({cart:request.data})
                     
                 })
             }else {
-                // do {
-                    await axios.patch('http://localhost:8080/api/cart/inc-cart/'+cart._id,{
-                        id_product:[idProd]
-                    }).then(request=>{
-                        console.log('push new product in cart : ',request.data);
+                const cartID = localStorage.getItem('cartID')
 
-                        this.setState({cart:request.data})
-                    })
-                // } while (this.handleAddtoCart(idProd,qty));
-                
+                await axios.patch('http://localhost:8080/api/cart/inc-cart/'+cartID,{
+                    id_product:[idProd]
+                }).then(request=>{
+                    console.log('push new product in cart : ',request.data);
+                    this.setState({cart:request.data})
+                })    
             }
         } catch (error) {
             console.log(error);
@@ -93,7 +86,7 @@ class CatalogPage extends Component {
             <FixedNavTop/>
             <NavBar/>
                 <div className="row container mt-5">
-                    {spiner ? products: 
+                    {spiner ? products:
                     <div className="d-flex justify-content-center mt-5">
                         <div className="spinner-grow text-warning" role="status">
                             <span className="visually-hidden">Loading...</span>

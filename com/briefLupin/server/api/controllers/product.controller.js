@@ -51,7 +51,7 @@ const saveProduct = async (req, res)=>{
         const saveProd = await newProduct.save();
         res.json(saveProd);
     } catch (error) {
-        res.json({message:error})
+        res.json(error.message)
     } 
 };
 

@@ -23,13 +23,13 @@ const getCategoryById = async (req, res) => {
 // // POST NEW DATA 
 const saveCategory = async (req, res)=>{
 
-    const newCategory = new Category({name:req.body.name, image:req.body.image});
-
+    const newCategory = new Category({name:req.body.name, image:req.files.image.name});
+    // console.log(req.files.image);
     try {
         const saveCateg = await newCategory.save();
         res.json(saveCateg);
     } catch (error) {
-        res.json({message:error})
+        res.json(error.message)
     } 
 };
 

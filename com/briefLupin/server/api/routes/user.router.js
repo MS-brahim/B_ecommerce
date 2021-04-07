@@ -6,7 +6,7 @@ router.route('/').get(userController.getSeller)
 router.route('/log-sa').post(userController.loginSuperAdmin)
 router.route('/register').post(userController.register)
 router.route('/login').post(userController.login)
-router.route('/:id').get(userController.getAdminById)
+router.route('/:id').get(userController.getUserById)
 router.route('/validate/:id').patch(userController.validateAdmin)
 
 

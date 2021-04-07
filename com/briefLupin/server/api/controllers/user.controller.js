@@ -80,7 +80,7 @@ const getSeller = async (req,res)=>{
 };
 
 // VALIDATE ADMIN
-const getAdminById = async (req, res)=>{
+const getUserById = async (req, res)=>{
     try {
         const admin = await User.findById({_id:req.params.id});
         res.status(200).json(admin);
@@ -139,5 +139,5 @@ module.exports = {
     login,
     getSeller,
     validateAdmin,
-    getAdminById,
+    getUserById,
 };

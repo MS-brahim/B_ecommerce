@@ -3,7 +3,8 @@ const Product = require('../models/Product.model');
 // GET DATA
 const getProduct = async (req,res)=>{
     try {
-        const products = await Product.find().populate('id_category');
+
+        const products = await Product.find().populate('id_user');
         res.json(products) 
     } catch (error) {
         res.json({message:error})
@@ -43,7 +44,6 @@ const saveProduct = async (req, res)=>{
             oldPrice    :req.body.oldPrice,
             price       :req.body.price,
             description :req.body.description,
-            id_category :req.body.id_category,
             id_user     :req.body.id_user,
         });
 
@@ -64,7 +64,6 @@ const updateProduct= async (req, res) => {
             oldPrice    :req.body.oldPrice,
             price       :req.body.price,
             description :req.body.description,
-            id_category :req.body.id_category,
             id_user     :req.body.id_user,
         }});
         res.json(product);

@@ -1,4 +1,4 @@
-import {ADD_TO_CART, REMOVE_ITEM, SUB_QUANTITY, ADD_QUANTITY, ADD_SHIPPING} from './types';
+import {ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART} from './types';
 
 
 //add cart action

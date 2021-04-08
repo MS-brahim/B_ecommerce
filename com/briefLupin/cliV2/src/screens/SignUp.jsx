@@ -69,7 +69,7 @@ class SignUpPage extends Component {
                                     <form>
                                         <div className="modal-header" style={{display:'contents'}}>
                                             <center className="modal-title" id="loginModelLabel">
-                                                <img src={logo} alt="logo" width="200"/>
+                                                <Link to="/"><img src={logo} alt="logo" width="200"/></Link>
                                             </center>
                                         </div>
                                         <div className="modal-body">
@@ -130,7 +130,7 @@ class SignUpPage extends Component {
                                                     name="password" 
                                                 />
                                                 {errors.password && touched.password ? (
-                                                    <FormFeedback>{errors.password}</FormFeedback>
+                                                    <FormFeedback className="ml-4">{errors.password}</FormFeedback>
                                                 ):null}
                                             </div>
                                             <div className="input-group mt-4">
@@ -150,7 +150,7 @@ class SignUpPage extends Component {
                                             </div>
                                         </div>
                                         <div className="modal-footer d-flex justify-content-between">
-                                            <button type="submit" className="btn btn-primary" onClick={handleSubmit} disabled={!isValid||isSubmiting}>Sign up</button>
+                                            <button type="submit" className="btn btn-warning" onClick={handleSubmit} disabled={!isValid||isSubmiting}>Sign up</button>
                                             <Link to='/sign-in' type="button" className="text-white" >Have an account? Sign In</Link>
                                         </div>
                                     </form>

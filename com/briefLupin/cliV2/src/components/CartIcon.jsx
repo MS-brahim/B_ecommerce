@@ -1,16 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const CartItem = (props) => {
-
+const CartItem = (Props) => {
+    
     return (
-        <small className="badge bg-danger" style={{position:'absolute', marginLeft:'-14px'}}></small>
+        <small className="badge bg-danger" style={{position:'absolute', marginLeft:'-14px'}}>1</small>
     );
 }
 
 const mapStateToProps = (state) => {
      return {
-        // totalQty : state.cartItems.reduce((total, item) => total + item.qty, 0)
+        // totalQty : state.cart.reduce((total, item) => total + item.qty, 0)
     };
 };
 

@@ -1,33 +1,43 @@
-import {ADD_TO_CART, REMOVE_ITEM, SUB_QUANTITY, ADD_QUANTITY, ADD_SHIPPING} from '../actions/types';
+import {ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART} from '../actions/types';
 
 const INITIAL_STATE = {
-    cartItems: [
-        {id:1, name:'ProductItem'},
-        {id:1, name:'ProductItem'},
-        {id:1, name:'ProductItem'}
+    cart: [
+        {id:1, name:'ProductItem1'},
+        {id:3, name:'ProductItem3'},
+        {id:2, name:'ProductItem2'}
     ],
-    qty:0
+    qty:3
 }
 
- 
-const cartReducer =  (state = INITIAL_STATE, action) => {
-    switch (action.type) {
-        case ADD_TO_CART:
-            return ...state
-                
-        
+export default function cartReduer(state, action){
 
-        // case REMOVE_ITEM:
-        //     return {...state, fetching: false, cartItems:action.payload};
-        // case SUB_QUANTITY:
-        //     return {...state, fetching: false};
-        // case ADD_QUANTITY:
-        //      return {...state, fetching: false};
-        // case ADD_SHIPPING:
-        //     return {...state, fetching: false};
+    switch(action.type){
+        case ADD_TO_CART: {
+            return {
+                cart: [
+                    ...state.cart,
+                    {
+                        product: action.productInfo,
+                        quantity: action.quantity
+                    }
+                ]
+            }
+        }
+
+        case REMOVE_FROM_CART: {
+            const item_index = action.index;
+            const new_state = {...state};
+            new_state.cart.splice(item_index, 1);
+            return new_state;
+        }
+
+        case CLEAR_CART: {
+            const new_state = {...state};
+            new_state.cart = [];
+            return new_state;
+        }
+
         default:
-            return state
+            return state;
     }
 }
-
-export default cartReducer

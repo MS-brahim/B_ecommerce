@@ -8,9 +8,11 @@ import {Home,
   SellerPage,
   CatalogPage,
   DetailsPage,
-  CartPage
+  CartPage,
+  SuperAdmin
 } from './screens';
 import ProtectedRoute from './components/ProtectedRoute';
+import { Footer } from './components';
 
 class App extends Component {
   render(){
@@ -26,6 +28,8 @@ class App extends Component {
         <Route path='/details/:id' component={DetailsPage} exact/>
         <Route path='/sign-in' component={SignInScreen} exact/>
         <Route path='/sign-up' component={SignUpScreen} exact/>
+        <Route path='/super-a/sign-in' component={SuperAdmin} exact/>
+        <Footer/>
       </div>
     );
   }

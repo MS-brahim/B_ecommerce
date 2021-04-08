@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
- import { FixedNavTop, NavBar } from '../components';
+import { FixedNavTop, NavBar, CartItem } from '../components';
+import axios from 'axios';
 
 class CartPage extends Component {
+
+
     render() { 
+        
         return (
             <div>
                 <FixedNavTop/>
@@ -10,15 +14,7 @@ class CartPage extends Component {
                 <div className="container my-4">
                     <div className="row">
                         <div className="col-sm-8  border pb-4">
-                            
-                            <div className="d-flex justify-content-between bg-light border shadow bg-white rounded mt-4 p-3">
-                                <b>
-                                Prod Name
-                                </b>
-                                <p> 20 Dhs</p>
-                                <span type="button" ><i className="fas fa-trash btn btn-sm btn-outline-info"></i></span>
-                            </div>
-
+                            <CartItem/>
                         </div>
                         <div className="col-sm-3 card m-auto mt-0">
                             <ul className="list-group list-group-flush">

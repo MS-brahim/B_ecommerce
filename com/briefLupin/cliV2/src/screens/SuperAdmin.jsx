@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 
 import logo from './assets/logo.png';
 
-import {SignIn} from '../actions';
 
 import {
     Alert,
@@ -14,35 +13,14 @@ import {
     FormFeedback
 } from 'reactstrap';
 
-class SignInPage extends Component {
+class SuperAdmin extends Component {
      
     componentDidUpdate(){
-        const { error, isAuth, auth } = this.props;
-        if (error && this.bag) {
-            this.bag.setSubmitting(false);
-        }
         
-        if (isAuth) {
-            switch (auth.role) {
-                case 'admin':
-                    this.props.history.push('/admin/dashboard')
-                    break;
-                case 'seller':
-                    this.props.history.push('/seller/dashboard')
-                    break;
-                case 'client':
-                    this.props.history.push('/')
-                    break;       
-            
-                default:
-                    break;
-            }
-        }
     }
 
-    _handleFormSubmit(values, bag){
-        this.props.SignIn(values)
-        this.bag = bag;
+    _handleFormSubmit(values){
+        // this.props.SignIn(values)
     }
     
     _renderErrorIfAny(){
@@ -58,13 +36,13 @@ class SignInPage extends Component {
                <div>
                
                     <div className="modal-dialog">
-                        <div className="modal-content bg-dark" style={{boxShadow: '5px -390px 43px 600px #212529', marginTop:'100px'}}>
+                        <div className="modal-content bg-dark" style={{boxShadow: '5px -390px 43px 600px #ffc107', marginTop:'100px'}}>
                         {this._renderErrorIfAny()}
                             <Formik
-                                initialValues = {{phone:"", password:""}}
+                                initialValues = {{email:"", password:""}}
                                 onSubmit={this._handleFormSubmit.bind(this)}
                                 validationSchema={Yup.object().shape({
-                                    phone:Yup.string().min(10).required(),
+                                    email:Yup.string().email().required(),
                                     password:Yup.string().min(8).required()
                                 })}
                                 render={({
@@ -84,18 +62,18 @@ class SignInPage extends Component {
                                         </div>
                                         <div className="modal-body">
                                             <div className="input-group">
-                                                <span className="input-group-text" id="addon-wrapping"><i className="fas fa-phone-square-alt"></i></span>
+                                                <span className="input-group-text" id="addon-wrapping"><i className="fas fa-at"></i></span>
                                                 <Input 
                                                     onChange={handleChange} 
                                                     onBlur={handleBlur} 
-                                                    invalid={errors.phone && touched.phone}
+                                                    invalid={errors.email && touched.email}
                                                     type="text" 
                                                     className="form-control" 
-                                                    placeholder="Phone number"
-                                                    name="phone" 
+                                                    placeholder="email number"
+                                                    name="email" 
                                                 />
-                                                {errors.phone && touched.phone ? (
-                                                    <FormFeedback  className="ml-4">{errors.phone}</FormFeedback>
+                                                {errors.email && touched.email ? (
+                                                    <FormFeedback  className="ml-4">{errors.email}</FormFeedback>
                                                 ):null}
                                             </div>
                                             <div className="input-group mt-4">
@@ -116,7 +94,6 @@ class SignInPage extends Component {
                                         </div>
                                         <div className="modal-footer d-flex justify-content-between">
                                             <button type="submit" className="btn btn-warning" onClick={handleSubmit} disabled={!isValid||isSubmiting}>Sign in</button>
-                                            <Link to='/sign-up' type="button" className="text-white" >Create new account</Link>
                                         </div>
                                     </form>
                                 )}
@@ -131,14 +108,4 @@ class SignInPage extends Component {
 
 }
 
-const mapStateToProps = ({ auth }) =>{
-    return {
-        attempting : auth.attempting,
-        error      : auth.error,
-        isAuth     : auth.isAuth,
-        auth       : auth.auth
-    }
-}
-
-const SignInScreen = connect(mapStateToProps, { SignIn })(SignInPage)
-export {SignInScreen};
+export {SuperAdmin};

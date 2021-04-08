@@ -28,7 +28,7 @@ class ProductHomeComponent extends Component {
 
     render() { 
         const {singleProd} = this.state
-        console.log(singleProd);
+        // console.log(singleProd);
         return (
             <div>
                 <div className="container mt-4">

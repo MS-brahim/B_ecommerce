@@ -1,5 +1,9 @@
 import axios from 'axios';
 
+export const apiSignUp = (request_data) =>{
+    return axios.post('/api/user/register', request_data)
+}
+
 export const apiLogin = request_data =>{
     // console.log(request_data);
     return axios.post('/api/user/login', request_data)

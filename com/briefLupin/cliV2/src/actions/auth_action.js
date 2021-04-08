@@ -1,6 +1,17 @@
-import {AUTH_ATTEMPTING, AUTH_SUCCESS, AUTH_FAILED, LOGOUT, AUTH_PROFILE} from './types';
-import {apiLogin, apiProfile} from '../api/user';
+import {AUTH_ATTEMPTING, AUTH_SUCCESS, AUTH_FAILED, LOGOUT, AUTH_PROFILE, SIGNUP_SUCCESS} from './types';
+import {apiLogin, apiProfile, apiSignUp} from '../api/user';
 const TOKEN = 'token'
+
+export const SignUp = (request_data) =>{
+    return async dispatch => {
+        try {
+            await apiSignUp(request_data)
+            dispatch({type:SIGNUP_SUCCESS})
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+}
 
 export const SignIn = request_data =>{
 
@@ -37,7 +48,7 @@ export const getUsetProfile = (id) =>{
         try {
             const auth = await apiProfile(id);
             dispatch({type: AUTH_PROFILE, payload: auth.data})
-            // console.log(auth.data);
+            console.log(auth.data._id);
         } catch (e) {
             console.error(e);
         }

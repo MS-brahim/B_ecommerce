@@ -2,26 +2,18 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {addToCart} from '../actions';
 import { connect } from 'react-redux'
+import {Link} from 'react-router-dom';
 
 class CatalogComponentPage extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            products:[],
-            spiner:false
-        }
+    state = {
+        products:[],
+        spiner:false
     }
      
     
     componentDidMount(){
         this.getProducts()
-    }
-
-    async handleAddtoCart(idProd){
-        const a = this.props.addToCart(idProd); 
-        console.log(a);
-        
     }
 
     async getProducts() {
@@ -30,14 +22,14 @@ class CatalogComponentPage extends Component {
         try {
             await axios.get('/api/product').then(response=>{
                 const products = response.data.map(prod=>
-                    <div className="col-sm-3" key={prod._id}>
-                        <div className="card m-auto mt-2" style={{width: '18rem'}}>
+                    <div className="col-sm-3 mt-2" key={prod._id}>
+                        <div className="card m-auto">
                             <img  className="card-img-top" alt="..."/>
                             <div className="card-body">
                                 <h5 className="card-title">{prod.name}</h5>
                                 <p className="card-text">{prod.description}</p>
                                 <p className="card-text">{prod.price} Dhs <del className="text-muted"><small>{prod.oldPrice} Dhs</small> </del> </p>
-                                <button className="btnCss btn btn-warning" onClick={()=>this.handleAddtoCart(prod._id)} style={{borderRadius:'30px'}}>Add to cart</button>
+                                <Link to={"/details/"+prod._id} className="btnCss btn btn-dark float-right" style={{borderRadius:'30px'}}>Details</Link>
                             </div>
                         </div>
                     </div>

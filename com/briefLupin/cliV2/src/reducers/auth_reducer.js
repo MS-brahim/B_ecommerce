@@ -1,9 +1,10 @@
-import {AUTH_ATTEMPTING, AUTH_SUCCESS, AUTH_FAILED, LOGOUT, AUTH_PROFILE} from '../actions/types';
+import {AUTH_ATTEMPTING, AUTH_SUCCESS, AUTH_FAILED, LOGOUT, AUTH_PROFILE, SIGNUP_SUCCESS} from '../actions/types';
 const INITIAL_STATE = {
     attempting: false,
     isAuth: false,
     auth:{},
     error: null,
+    register:false
 };
  
 export default (state = INITIAL_STATE, action) => {
@@ -18,6 +19,8 @@ export default (state = INITIAL_STATE, action) => {
             return {...state, isAuth: false, auth: {}}
         case AUTH_PROFILE: 
             return {...state, auth: action.payload}
+        case SIGNUP_SUCCESS:
+            return { ...state, error: null, register: true };
         default:
             return state
     }

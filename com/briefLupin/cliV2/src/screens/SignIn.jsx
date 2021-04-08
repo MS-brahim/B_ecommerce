@@ -4,6 +4,8 @@ import {Formik} from 'formik';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
 
+import logo from './assets/logo.png';
+
 import {SignIn} from '../actions';
 
 import {
@@ -41,34 +43,6 @@ class SignInPage extends Component {
     _handleFormSubmit(values, bag){
         this.props.SignIn(values)
         this.bag = bag;
-        // axios.post('http://localhost:8080/api/user/login', {
-        //     phone: values.phone,
-        //     password:values.password,
-        // }).then((response) => {
-        //     localStorage.setItem('auth-token', response.data.token)
-        //     localStorage.setItem('auth-id', response.data.auth._id)
-        //     let authRole = response.data.auth.role;
-            // switch (authRole) {
-            //     case 'admin':
-            //         window.location.href= '/admin/dashboard'
-            //         console.log('is Admin');
-            //         break;
-            //     case 'seller':
-            //         console.log('is seller');
-            //         window.location.href= '/seller/dashboard'
-            //         break;
-            //     case 'client':
-            //         console.log('is client');
-            //         window.location.href= '/'
-            //         break;       
-            
-            //     default:
-            //         break;
-            // }
-        //     console.log(response.data)
-        // }).catch((err) => {
-        //     console.log(err)
-        // });
     }
     
     _renderErrorIfAny(){
@@ -83,7 +57,7 @@ class SignInPage extends Component {
             <div>
                <div>
                     <div className="modal-dialog">
-                        <div className="modal-content bg-dark" style={{boxShadow: '5px 6px 10px 540px #212529', marginTop:'100px'}}>
+                        <div className="modal-content bg-dark" style={{boxShadow: '5px -390px 43px 600px #212529', marginTop:'100px'}}>
                         {this._renderErrorIfAny()}
                             <Formik
                                 initialValues = {{phone:"", password:""}}
@@ -104,7 +78,7 @@ class SignInPage extends Component {
                                     <form>
                                         <div className="modal-header" style={{display:'contents'}}>
                                             <center className="modal-title" id="loginModelLabel">
-                                                {/* <img src={logo} alt="logo" width="200"/> */}
+                                                <img src={logo} alt="logo" width="200"/>
                                             </center>
                                         </div>
                                         <div className="modal-body">
@@ -140,8 +114,8 @@ class SignInPage extends Component {
                                             </div>
                                         </div>
                                         <div className="modal-footer d-flex justify-content-between">
-                                            <button type="submit" className="btn btn-primary" onClick={handleSubmit} disabled={!isValid||isSubmiting}>Login</button>
-                                            <Link href='/sign-up' type="button" className="text-white" >Create new account</Link>
+                                            <button type="submit" className="btn btn-primary" onClick={handleSubmit} disabled={!isValid||isSubmiting}>Sign in</button>
+                                            <Link to='/sign-up' type="button" className="text-white" >Create new account</Link>
                                         </div>
                                     </form>
                                 )}

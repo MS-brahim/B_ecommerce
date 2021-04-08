@@ -2,6 +2,8 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import {singleProduct} from '../actions/product_action';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
+
 class ProductHomeComponent extends Component {
 
     constructor(props) {
@@ -39,7 +41,7 @@ class ProductHomeComponent extends Component {
                                 <h5 className="card-title">{singleProd.name}</h5>
                                 <h6 className="card-subtitle mb-2 text-muted">{singleProd.price} Dhs <del>{singleProd.oldPrice} Dhs</del></h6>
                                 <p className="card-text">{singleProd.description}</p>
-                                <button className="btnCss btn btn-warning px-4 py-2" style={{borderRadius:'30px'}}> Buy New</button>
+                                <Link to={"/details/"+singleProd._id} className="btnCss btn btn-warning px-4 py-2" style={{borderRadius:'30px'}}>Details</Link>
                             </div>
                         </div>
                     </div>

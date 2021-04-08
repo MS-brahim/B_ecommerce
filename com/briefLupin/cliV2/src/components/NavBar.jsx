@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import React, { Component } from 'react';
 import {logout} from '../actions';
+import logo from './logo.png';
 
 class NavbarComponent extends Component {
 
@@ -15,7 +16,7 @@ class NavbarComponent extends Component {
         return (
             <span>
                 <Link type="button" className="text-white" to="/sign-in">Login <i className="fas fa-sign-in-alt"></i></Link> 
-                &nbsp; | <Link type="button" className="text-white">Create new account <i className="fas fa-user-plus"></i></Link> 
+                &nbsp; | <Link type="button" to="/sign-up" className="text-white">Create new account <i className="fas fa-user-plus"></i></Link> 
             </span>
         )
     }
@@ -25,7 +26,7 @@ class NavbarComponent extends Component {
             <div>
                 <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{marginTop:'35px'}}>
                     <div className="container-fluid">
-                        <Link className="navbar-brand" to="/">Logo</Link>
+                        <Link className="navbar-brand" to="/"><img src={logo} alt={logo} width="30px"></img> </Link>
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button>

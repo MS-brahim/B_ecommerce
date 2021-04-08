@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { CartIcon} from './';
  
 const FixedNavTop = () => {
 
@@ -7,7 +8,7 @@ const FixedNavTop = () => {
         <nav className="navbar fixed-top navbar-light bg-warning px-5">
             <div className="float-right"><i className="fab fa-whatsapp"></i> 09 87 86 76 34</div>
             <div className="float-left">
-                <small className="badge bg-danger">1</small>
+                <CartIcon/>
                 <Link  to="/cart" className="text-dark">
                     <i type="button" className="fas fa-shopping-bag"></i>
                 </Link> |

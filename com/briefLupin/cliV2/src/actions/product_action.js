@@ -1,5 +1,6 @@
 import { FETCHING_PRODUCT, FETCHING_PRODUCT_SUCCESS, FETCHING_PRODUCT_FAILED} from '../actions/types';
 import {apiSingleProduct} from '../api/product';
+
 export const singleProduct = response_data => {
     
     return async dispatch =>{
@@ -12,3 +13,7 @@ export const singleProduct = response_data => {
         }
     }
 }
+
+
+
+

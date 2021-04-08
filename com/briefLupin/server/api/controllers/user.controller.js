@@ -3,6 +3,7 @@ const {loginValidation, registerValidation} =require('../validation/user.validat
 const logSchema = require('../models/Logger.model');
 const log = require('../config/log');
 const User = require('../models/User.model');
+const bcrypt = require('bcryptjs');
 
 
 // LOGIN SUPER ADMIN 
@@ -31,8 +32,9 @@ const login = async (req, res)=>{
     const auth = await User.findOne({phone:req.body.phone});
     if(!auth) return res.status(400).send('Phone Number is not found!!');
     // CHECK IF PASSWORD IS CORRECT
-    const authPass = await User.findOne({password:req.body.password});
-    if(!authPass) return res.status(400).send('Password incorrect!!');
+    // PASSWORD IS CORRECT 
+    const validPassword = await bcrypt.compare(req.body.password, auth.password);
+    if(!validPassword) return res.status(400).send('Invalid password!!')
 
     const token = jwt.sign({_id:auth._id}, process.env.TOKEN_SECRET,{expiresIn:process.env.JWT_EXPIR});
     res.send({token, auth});
@@ -51,13 +53,16 @@ const register = async (req, res)=>{
     const emailExist = await User.findOne({email:req.body.email});
     if(emailExist) return res.status(400).send('Address email already exists');
 
+     // HASH PASSWORD 
+     const salt = await bcrypt.genSalt(10);
+     const hashPassword = await bcrypt.hash(req.body.password, salt);
 
     const reqB = req.body;
     const newAdmin = new User({
         full_name   : reqB.full_name,
         email       : reqB.email,
         phone       : reqB.phone,
-        password    : reqB.password,
+        password    : hashPassword,
         cin         : reqB.cin
     });
 

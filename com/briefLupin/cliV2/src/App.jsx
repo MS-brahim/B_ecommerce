@@ -12,12 +12,13 @@ import {Home,
   SuperAdmin
 } from './screens';
 import ProtectedRoute from './components/ProtectedRoute';
-import { Footer } from './components';
+import { Footer, FixedNavTop } from './components';
 
 class App extends Component {
   render(){
     return (
       <div>
+        <FixedNavTop/>
         <Switch>
           <ProtectedRoute path='/admin/dashboard' component={AdminPage} exact/>
           <ProtectedRoute path='/seller/dashboard' component={SellerPage} exact/>

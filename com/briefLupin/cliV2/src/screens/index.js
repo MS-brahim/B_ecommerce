@@ -6,6 +6,6 @@ export * from './Cart'
 // AUTH 
 export * from './SignIn.jsx'
 export * from './SignUp.jsx'
-export * from './SuperAdmin.jsx'
+export * from './SuperAdminSign.jsx'
 export * from './auth/Admin'
 export * from './auth/Seller'

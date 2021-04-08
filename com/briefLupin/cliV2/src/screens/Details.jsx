@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { FixedNavTop, NavBar } from '../components';
+import { NavBar } from '../components';
 
 class DetailsPage extends Component {
 
@@ -37,7 +37,6 @@ class DetailsPage extends Component {
         // console.log(productDetails);
         return (
             <div>
-                <FixedNavTop/>
                 <NavBar/>
                 <div className="container mt-4">
                     <div className="row">

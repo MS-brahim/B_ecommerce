@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FixedNavTop, NavBar, CartItem } from '../components';
+import { NavBar, CartItem } from '../components';
 import axios from 'axios';
 
 class CartPage extends Component {
@@ -9,7 +9,6 @@ class CartPage extends Component {
         
         return (
             <div>
-                <FixedNavTop/>
                 <NavBar/>
                 <div className="container my-4">
                     <div className="row">

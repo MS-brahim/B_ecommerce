@@ -14,13 +14,13 @@ const loginSuperAdmin = async (req, res)=>{
         phone: "0102030405",
         password: "0102030405",
     };
-    if(SuperAdmin.email != req.body.email) return res.status(400).send('Address email is not found!');
-    if(SuperAdmin.password != req.body.password) return res.status(401).send('Password incorrect!');
+    if(SuperAdmin.email != await req.body.email) return res.status(400).send('Address email is not found!');
+    if(SuperAdmin.password != await req.body.password) return res.status(401).send('Password incorrect!');
     
 
     const token = jwt.sign({email:SuperAdmin.email}, process.env.TOKEN_SECRET,{expiresIn:process.env.JWT_EXPIR});
     res.send({token, SuperAdmin});
-    console.log(token);
+    // console.log(token);
 };
 
 // LOGIN AUTH 
@@ -32,7 +32,6 @@ const login = async (req, res)=>{
     const auth = await User.findOne({phone:req.body.phone});
     if(!auth) return res.status(400).send('Phone Number is not found!!');
     // CHECK IF PASSWORD IS CORRECT
-    // PASSWORD IS CORRECT 
     const validPassword = await bcrypt.compare(req.body.password, auth.password);
     if(!validPassword) return res.status(400).send('Invalid password!!')
 

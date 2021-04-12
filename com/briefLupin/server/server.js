@@ -5,6 +5,10 @@ require('dotenv/config');
 const db = require('./api/config/db');
 const formData = require("express-form-data");
 const os = require('os');
+const bodyParser = require('body-parser');
+
+server.use(bodyParser.json({}));//this line is required to tell your app to parse the body as json
+server.use(bodyParser.urlencoded({ extended: false }));
 
 server.use(express.json());
 const options = {
@@ -15,6 +19,9 @@ server.use(formData.format());
 server.use(formData.union());
 server.use(formData.stream());
 server.use(formData.parse(options));
+
+
+
 server.use(cors())
 
 db.connect()

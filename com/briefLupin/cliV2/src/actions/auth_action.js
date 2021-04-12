@@ -1,5 +1,5 @@
 import {AUTH_ATTEMPTING, AUTH_SUCCESS, AUTH_FAILED, LOGOUT, AUTH_PROFILE, SIGNUP_SUCCESS} from './types';
-import {apiLogin, apiProfile, apiSignUp} from '../api/user';
+import {apiLogin, apiProfile, apiSignUp, apiSuperAdminSignUp} from '../api/user';
 const TOKEN = 'token'
 
 export const SignUp = (request_data) =>{
@@ -9,6 +9,20 @@ export const SignUp = (request_data) =>{
             dispatch({type:SIGNUP_SUCCESS})
         } catch (error) {
             console.log(error.message);
+        }
+    }
+}
+
+export const SuperAdminSignIn = (request_data) =>{
+    return async dispatch =>{
+        dispatch({type:AUTH_ATTEMPTING});
+        try {
+            const {data: {token}} = await apiSuperAdminSignUp(request_data)
+            // dispatch(getUsetProfile(auth._id))
+            dispatch(success(token))
+        } catch (e) {
+            const {respons: {data}} = e
+            dispatch(error(data.error))
         }
     }
 }

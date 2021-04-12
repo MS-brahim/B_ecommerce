@@ -36,16 +36,20 @@ const getProductById = async (req, res) => {
 
 // // POST NEW DATA 
 const saveProduct = async (req, res)=>{
-    
+
+
+
     const newProduct= new Product(
         {
-            image       :req.body.image,
+            image       :req.file.filename,
             name        :req.body.name,
             oldPrice    :req.body.oldPrice,
             price       :req.body.price,
             description :req.body.description,
             id_user     :req.body.id_user,
         });
+        console.log(req.body);
+        console.log(req.file.filename);
 
     try {
         const saveProd = await newProduct.save();

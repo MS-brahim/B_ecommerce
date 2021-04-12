@@ -10,4 +10,5 @@ export * from './auth/seller/ProductSave'
 export * from './Footer'
 
 export * from './auth/admin/SellerTable.jsx'
+export * from './auth/admin/Annonce'
 

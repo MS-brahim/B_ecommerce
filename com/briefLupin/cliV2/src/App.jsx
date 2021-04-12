@@ -6,10 +6,11 @@ import {Home,
   SignUpScreen, 
   AdminPage, 
   SellerPage,
+  SuperAdminPage,
   CatalogPage,
   DetailsPage,
   CartPage,
-  SuperAdmin
+  SuperAdmin,
 } from './screens';
 import ProtectedRoute from './components/ProtectedRoute';
 import { Footer, FixedNavTop } from './components';
@@ -22,6 +23,7 @@ class App extends Component {
         <Switch>
           <ProtectedRoute path='/admin/dashboard' component={AdminPage} exact/>
           <ProtectedRoute path='/seller/dashboard' component={SellerPage} exact/>
+          <ProtectedRoute path='/super-admin/dashboard' component={SuperAdminPage} exact/>
         </Switch>
         <Route path='/' component={Home} exact/>
         <Route path='/cart' component={CartPage} exact/>

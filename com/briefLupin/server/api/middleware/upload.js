@@ -1,20 +1,25 @@
-const multer = require('multer'); 
+const multer = require("multer");
+
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './middleware');
+    destination: function (req, file, callback) {
+        callback(file, '../cliV2/public/uploads');
     },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + file.originalname);
+    filename: function (req, file, callback) {
+        callback(null, new Date().toISOString().replace(/:/g, "-") + file.originalname);
+    }
+});
+const uploadImage = multer({
+    storage: storage,
+    limits: {
+      fileSize: 600000,
+    },
+    fileFilter(req, file, callback) {
+      if (file.mimetype === "image/png" || "image/jpg") {
+        callback(null, true);
+      } else {
+        callback(new Error("Please upload an image."));
+      }
     },
 })
 
-const fileFilter = (req, file, cb)=>{
-    if (file.mimetype ==='image/jpeg' || file.mimetype === 'image/png') {
-        cb(null, true)
-    }else{
-        cb(null, false)
-    }
-}
-const upload = multer({storage:storage, fileFilter:fileFilter});
-
-module.exports = {upload}
+module.exports = {uploadImage}

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {SideBarSeller,
     TableProducstSeller,
-    ProductSave
 } from '../../components';
 
     

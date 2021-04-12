@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import logo from './assets/logo.png';
+import { SuperAdminSignIn } from '../actions';
 
 
 import {
@@ -13,25 +14,48 @@ import {
     FormFeedback
 } from 'reactstrap';
 
-class SuperAdmin extends Component {
+class SuperAdminScreen extends Component {
 
-    _handleFormSubmit(values){
-        axios.post('/api/user/super-admin/login',{
-            email: values.email,
-            password: values.password
-        }).then((response) => {
-            // localStorage.setItem('auth-token', response.data)
-            // localStorage.setItem('auth-id', response.data)
-            let successLogin = response.data;
-            if (successLogin) {
-                window.location.href= '/superAdmin/dashboard'
-            }
-            console.log(response.data)
+    // _handleFormSubmit(values){
+    //     axios.post('/api/user/super-admin/login',{
+    //         email: values.email,
+    //         password: values.password
+    //     }).then((response) => {
+    //         // localStorage.setItem('auth-token', response.data)
+    //         // localStorage.setItem('auth-id', response.data)
+    //         let successLogin = response.data;
+    //         if (successLogin) {
+    //             window.location.href= '/superAdmin/dashboard'
+    //         }
+    //         console.log(response.data)
 
-        }).catch((err) => {
-            console.log(err)
-        });
-        // console.log(values);
+    //     }).catch((err) => {
+    //         console.log(err)
+    //     });
+    //     // console.log(values);
+    // }
+
+
+    componentDidUpdate(){
+        const { error, isAuth, auth } = this.props;
+        if (error && this.bag) {
+            this.bag.setSubmitting(false);
+        }
+        if (auth) {
+            this.props.history.push('/super-admin/dashboard')
+        }
+    }
+
+    _handleFormSubmit(values, bag){
+        this.props.SuperAdminSignIn(values)
+        this.bag = bag;
+    }
+    
+    _renderErrorIfAny(){
+        const { error } = this.props;
+        if (error) {
+            return (<Alert color="danger">{error}</Alert>);
+        }
     }
 
     render() { 
@@ -109,5 +133,16 @@ class SuperAdmin extends Component {
     }
 
 }
+
+const mapStateToProps = ({ auth }) =>{
+    return {
+        attempting : auth.attempting,
+        error      : auth.error,
+        isAuth     : auth.isAuth,
+        auth       : auth.auth
+    }
+}
+
+const SuperAdmin = connect(mapStateToProps, { SuperAdminSignIn })(SuperAdminScreen)
 
 export {SuperAdmin};

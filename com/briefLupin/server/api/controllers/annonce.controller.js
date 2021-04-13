@@ -1,5 +1,5 @@
 const Annonce = require('../models/Annonce.model');
-const { upload} = require('../middleware/upload')
+
 // GET DATA
 const getAnnonces = async (req, res) => {
     try {
@@ -22,36 +22,23 @@ const getAnnonceById = async (req, res) => {
 
 // // POST NEW DATA 
 const saveAnnonce = async (req, res)=>{
-    // res.setHeader(req.files)
-    console.log(req.files.image.path);
-    const newAnnonce = new Annonce({
-        image: req.files,
-        price: req.body.pricing,
-        startDate: req.body.startDate,
-        endDate: req.body.endDate,
-      });
-    
-      try {
-        const savedAd = await newAnnonce.save();
-        res.status(201).send(savedAd);
-      } catch (error) {
-        res.send(400).send({ message: error.message });
-      }
 
-
-    // const newAnnonce= new Annonce(
-    //     {
-    //         image        :req.files,
-    //         price        :req.body.price,
+    // console.log(req.files);
+    const newAnnonce= new Annonce(
+        {
+            title        :req.body.title,
+            image        :req.files.image.name,
+            description  :req.body.description,
+            price        :req.body.price,
             
-    //     });
+        });
 
-    // try {
-    //     const saveAnnonce = await newAnnonce.save();
-    //     res.json(saveAnnonce);
-    // } catch (error) {
-    //     res.json(error.message)
-    // } 
+    try {
+        const saveAnnonce = await newAnnonce.save();
+        res.json(saveAnnonce);
+    } catch (error) {
+        res.json(error.message)
+    } 
 };
 
 // UPDATE Annonce QTY 

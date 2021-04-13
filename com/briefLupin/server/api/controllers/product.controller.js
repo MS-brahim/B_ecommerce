@@ -41,15 +41,15 @@ const saveProduct = async (req, res)=>{
 
     const newProduct= new Product(
         {
-            image       :req.file.filename,
+            image       :req.files.image.name,
             name        :req.body.name,
             oldPrice    :req.body.oldPrice,
             price       :req.body.price,
             description :req.body.description,
             id_user     :req.body.id_user,
         });
-        console.log(req.body);
-        console.log(req.file.filename);
+        // console.log(req.body);
+        // console.log(req.files);
 
     try {
         const saveProd = await newProduct.save();
@@ -63,7 +63,7 @@ const saveProduct = async (req, res)=>{
 const updateProduct= async (req, res) => {
     try {
         const product= await Product.updateOne({_id:req.params.id}, {$set:{
-            image       :req.body.image,
+            image       :req.files.image.name,
             name        :req.body.name,
             oldPrice    :req.body.oldPrice,
             price       :req.body.price,

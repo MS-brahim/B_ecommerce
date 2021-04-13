@@ -3,7 +3,7 @@ const Order = require('../models/Order.model');
 // GET ALL DATA 
 const getOrders = async (req, res) => {
     try {
-        res.json(await Order.find());
+        res.json(await Order.find().populate('id_product'));
     } catch (error) {
         res.json({message:error})
     }

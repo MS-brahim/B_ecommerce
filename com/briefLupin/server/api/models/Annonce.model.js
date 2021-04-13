@@ -1,20 +1,25 @@
 const mongoose = require('mongoose');
 
 const Annonce = new mongoose.Schema({
+    title:{
+        type:String,
+        // required:true
+    },
     image:{
         type:String,
         required:true
     },
+    description:{
+        type:String,
+        // required:true
+    },
     price:{
-        type:Number
+        type:Number,
+        // required:true
     },
-    startDate:{
+    create_at:{
         type:Date,
-        required: true
-    },
-    endDate: {
-        type: Date,
-        required: true
+        default:Date.now
     }
 });
 

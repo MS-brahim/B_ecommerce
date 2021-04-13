@@ -2,6 +2,7 @@ export * from './Home.jsx';
 export * from './Catalog'
 export * from './Details'
 export * from './Cart'
+export * from './Order'
 
 // AUTH 
 export * from './SignIn.jsx'

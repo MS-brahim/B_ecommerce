@@ -34,7 +34,7 @@ class ProductHomeComponent extends Component {
                 <div className="container mt-4">
                     <div className="row">
                         <div className=" col-sm-6">
-                            <img src={singleProd.image} alt="" className="img-fluid w-75"></img>
+                            <img src={process.env.PUBLIC_URL+'/uploads/'+singleProd.image} alt="" className="img-fluid w-75"></img>
                         </div>
                         <div className="col-sm-6" style={{alignItems:'center', display:'flex', textAlign:'start'}}>
                             <div className="card-body">

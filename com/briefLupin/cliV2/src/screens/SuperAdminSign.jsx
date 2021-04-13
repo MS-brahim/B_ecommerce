@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import logo from './assets/logo.png';
 import { SuperAdminSignIn } from '../actions';
 
@@ -41,7 +40,7 @@ class SuperAdminScreen extends Component {
         if (error && this.bag) {
             this.bag.setSubmitting(false);
         }
-        if (auth) {
+        if (isAuth) {
             this.props.history.push('/super-admin/dashboard')
         }
     }

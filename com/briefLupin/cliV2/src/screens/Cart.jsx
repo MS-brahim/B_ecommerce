@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { NavBar, CartItem } from '../components';
-import axios from 'axios';
 
 class CartPage extends Component {
 

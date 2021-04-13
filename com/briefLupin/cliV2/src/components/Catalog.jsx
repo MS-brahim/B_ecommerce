@@ -24,7 +24,7 @@ class CatalogComponentPage extends Component {
                 const products = response.data.map(prod=>
                     <div className="col-sm-3 mt-2" key={prod._id}>
                         <div className="card m-auto">
-                            <img  className="card-img-top" alt="..."/>
+                            <img src={process.env.PUBLIC_URL + '/uploads/'+prod.image} className="card-img-top" alt="..."/>
                             <div className="card-body">
                                 <h5 className="card-title">{prod.name}</h5>
                                 <p className="card-text">{prod.description}</p>
@@ -48,7 +48,7 @@ class CatalogComponentPage extends Component {
     render() { 
         const { spiner, products } = this.state 
         return (
-            <div className="container-fluid mt-5">
+            <div className="container-fluid my-5">
                 <div className="row">
                     {products}
                 </div>

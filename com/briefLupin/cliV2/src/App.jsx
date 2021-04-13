@@ -9,6 +9,7 @@ import {Home,
   SuperAdminPage,
   CatalogPage,
   DetailsPage,
+  OrderPage,
   CartPage,
   SuperAdmin,
 } from './screens';
@@ -29,10 +30,11 @@ class App extends Component {
         <Route path='/cart' component={CartPage} exact/>
         <Route path='/catalog' component={CatalogPage} exact/>
         <Route path='/details/:id' component={DetailsPage} exact/>
+        <Route path='/order/:id' component={OrderPage} exact/>
         <Route path='/sign-in' component={SignInScreen} exact/>
         <Route path='/sign-up' component={SignUpScreen} exact/>
         <Route path='/super-a/sign-in' component={SuperAdmin} exact/>
-        <Footer/>
+        {/* <Footer/> */}
       </div>
     );
   }
